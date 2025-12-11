@@ -1,6 +1,6 @@
 package com.projet.yaounde_loc.repository;
 
-import com.example.yaoundeloc.model.User;
+import com.projet.yaounde_loc.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

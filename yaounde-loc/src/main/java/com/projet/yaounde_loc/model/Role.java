@@ -5,7 +5,8 @@ import lombok.*;
 
 @Entity
 @Table(name = "roles")
-@Data
+@Getter
+@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Role {
@@ -14,7 +15,8 @@ public class Role {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Enumerated(EnumType.STRING) // Stocke le nom de l'Enum (ROLE_...) en String dans la DB
     @Column(nullable = false, unique = true)
-    private String name; // Exemple: "ROLE_ADMIN", "ROLE_PROPRIETAIRE", "ROLE_LOCATAIRE"
+    private RoleName name;
 }
 

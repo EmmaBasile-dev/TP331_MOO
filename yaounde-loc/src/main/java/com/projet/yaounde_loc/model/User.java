@@ -8,10 +8,12 @@ import java.util.Set;
 
 @Entity
 @Table(name = "users")
-@Data
+@Getter // Remplace @Data pour un meilleur contrôle
+@Setter // Remplace @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@EqualsAndHashCode(exclude = {"roles", "annonces"}) // Exclure les relations de equals/hashCode
 public class User {
     
 
@@ -24,6 +26,7 @@ public class User {
     private String email;
 
     @Column(nullable = false)
+    @ToString.Exclude // Sécurité: Ne jamais afficher le mot de passe dans les logs
     private String password;
 
     @Column(nullable = false)
@@ -32,7 +35,7 @@ public class User {
     @Column(nullable = false)
     private String phone;
 
-    private boolean enabled = true; // pour bloquer/désactiver un compte
+    private boolean enabled = true; 
 
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
@@ -42,6 +45,8 @@ public class User {
     )
     private Set<Role> roles = new HashSet<>();
     
+    // Correction de la relation Annonce : un Utilisateur est Propriétaire de plusieurs Annonces
+    @OneToMany(mappedBy = "proprietaire", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Set<Annonce> annonces = new HashSet<>();
 }
 
